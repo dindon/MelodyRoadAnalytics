@@ -1,0 +1,10 @@
+services:
+    melody_road_analytics.parameters_manager:
+        class: Melody\RoadAnalyticsBundle\ParametersManager\ParametersManager
+
+    melody_road_analytics.visitor_request:
+        class: Melody\RoadAnalyticsBundle\Counter\Counter
+        arguments: [@router, @request]
+        scope: request
+        tags:
+            - { name: kernel.event_listener, priority: -255, event: kernel.controller, method: visitorRequest }
