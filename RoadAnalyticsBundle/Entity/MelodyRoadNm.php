@@ -35,6 +35,13 @@ class MelodyRoadNm
     private $roadname;
 
     /**
+     * @var string $url
+     *
+     * @ORM\Column(name="url", type="string", length=300, nullable=false)
+     */
+    private $url;
+
+    /**
     * @var MelodyRoadGrp
     *
     * @ORM\ManyToOne(targetEntity="MelodyRoadGrp")
@@ -92,5 +99,45 @@ class MelodyRoadNm
     public function getRefvisitor()
     {
         return $this->refvisitor;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set refgrp
+     *
+     * @param Melody\RoadAnalyticsBundle\Entity\MelodyRoadGrp $refgrp
+     */
+    public function setRefgrp(\Melody\RoadAnalyticsBundle\Entity\MelodyRoadGrp $refgrp)
+    {
+        $this->refgrp = $refgrp;
+    }
+
+    /**
+     * Get refgrp
+     *
+     * @return Melody\RoadAnalyticsBundle\Entity\MelodyRoadGrp 
+     */
+    public function getRefgrp()
+    {
+        return $this->refgrp;
     }
 }

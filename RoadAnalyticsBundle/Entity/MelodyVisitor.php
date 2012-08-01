@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Melody\RoadAnalyticsBundle\Entity\MelodyVisitor
  *
  * @ORM\Table(name="MELODY_VISITOR")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Melody\RoadAnalyticsBundle\Repositories\MelodyVisitorRepository")
  */
 class MelodyVisitor
 {
@@ -52,7 +52,9 @@ class MelodyVisitor
      */
     private $browser;
 
-
+    public function __construct(){
+        $this->datevisit = new \DateTime();
+    }
 
     /**
      * Get id

@@ -67,4 +67,24 @@ class MelodyRoadGrp
     {
         return $this->libelle;
     }
+
+    /**
+     * Add roadnames
+     *
+     * @param Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm $roadnames
+     */
+    public function addMelodyRoadNm(\Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm $roadnames)
+    {
+        $this->roadnames[] = $roadnames;
+    }
+
+    /**
+     * Get roadnames
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getRoadnames()
+    {
+        return $this->roadnames;
+    }
 }
