@@ -36,6 +36,7 @@ class MelodyDateVisit
 
     public function __construct(){
         $this->visitors = new ArrayCollection();
+        $this->datevisit = new \DateTime();
     }
 
     /**

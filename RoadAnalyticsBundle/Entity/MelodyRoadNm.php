@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm
  *
  * @ORM\Table(name="MELODY_ROAD_NM")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Melody\RoadAnalyticsBundle\Repositories\MelodyRoadNmRepository")
  */
 class MelodyRoadNm
 {
