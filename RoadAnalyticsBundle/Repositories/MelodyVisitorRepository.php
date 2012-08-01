@@ -8,8 +8,8 @@ class MelodyVisitorRepository extends EntityRepository
 	{
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('COUNT(visitor)')
-		   ->join('visitor.roadnames', 'road')
-		   ->join('visitor.refdatevisite', 'date')
+		   ->join('visitor.refroadnm', 'road')
+		   ->join('visitor.refdatevisit', 'date')
 		   ->where('visitor.ip = :ip')
 		   ->andWhere('road.roadname = :roadname')
 		   ->andWhere('road.url = :url')

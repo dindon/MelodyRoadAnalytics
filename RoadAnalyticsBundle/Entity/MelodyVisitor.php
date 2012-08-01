@@ -32,6 +32,16 @@ class MelodyVisitor
     private $refdatevisit;
 
     /**
+    * @var MelodyRoadNm
+    *
+    * @ORM\ManyToOne(targetEntity="MelodyRoadNm")
+    * @ORM\JoinColumns({
+    *   @ORM\JoinColumn(name="refroadnm", referencedColumnName="id")
+    * })
+    */
+    private $refroadnm;
+
+    /**
      * @var string $ip
      *
      * @ORM\Column(name="ip", type="string", length=20, nullable=false)
@@ -51,6 +61,7 @@ class MelodyVisitor
      * @ORM\Column(name="browser", type="string", length=50, nullable=false)
      */
     private $browser;
+
 
     public function __construct(){
         $this->datevisit = new \DateTime();
@@ -144,5 +155,25 @@ class MelodyVisitor
     public function getRefdatevisit()
     {
         return $this->refdatevisit;
+    }
+
+    /**
+     * Set refroadnm
+     *
+     * @param Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm $refroadnm
+     */
+    public function setRefroadnm(\Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm $refroadnm)
+    {
+        $this->refroadnm = $refroadnm;
+    }
+
+    /**
+     * Get refroadnm
+     *
+     * @return Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm 
+     */
+    public function getRefroadnm()
+    {
+        return $this->refroadnm;
     }
 }

@@ -2,6 +2,7 @@
 namespace Melody\RoadAnalyticsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Melody\RoadAnalyticsBundle\Entity\MelodyRoadNm
@@ -19,13 +20,6 @@ class MelodyRoadNm
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-    * @var MelodyVisitor
-    * @ORM\OneToOne(targetEntity="MelodyVisitor", cascade={"persist", "remove"})
-    * @ORM\JoinColumn(name="refvisitor", referencedColumnName="id")
-    */
-    private $refvisitor;
 
     /**
      * @var string $roadname
@@ -50,6 +44,15 @@ class MelodyRoadNm
     * })
     */
     private $refgrp;
+
+    /**
+    * @ORM\OneToMany(targetEntity="MelodyVisitor", mappedBy="refroadnm", cascade={"persist", "remove"})
+    */
+    private $visitors;
+    
+    public function __construct(){
+        $this->visitors = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -79,26 +82,6 @@ class MelodyRoadNm
     public function getRoadname()
     {
         return $this->roadname;
-    }
-
-    /**
-     * Set refvisitor
-     *
-     * @param Melody\RoadAnalyticsBundle\Entity\MelodyVisitor $refvisitor
-     */
-    public function setRefvisitor(\Melody\RoadAnalyticsBundle\Entity\MelodyVisitor $refvisitor)
-    {
-        $this->refvisitor = $refvisitor;
-    }
-
-    /**
-     * Get refvisitor
-     *
-     * @return Melody\RoadAnalyticsBundle\Entity\MelodyVisitor 
-     */
-    public function getRefvisitor()
-    {
-        return $this->refvisitor;
     }
 
     /**
@@ -139,5 +122,25 @@ class MelodyRoadNm
     public function getRefgrp()
     {
         return $this->refgrp;
+    }
+
+    /**
+     * Add visitors
+     *
+     * @param Melody\RoadAnalyticsBundle\Entity\MelodyVisitor $visitors
+     */
+    public function addMelodyVisitor(\Melody\RoadAnalyticsBundle\Entity\MelodyVisitor $visitors)
+    {
+        $this->visitors[] = $visitors;
+    }
+
+    /**
+     * Get visitors
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getVisitors()
+    {
+        return $this->visitors;
     }
 }
