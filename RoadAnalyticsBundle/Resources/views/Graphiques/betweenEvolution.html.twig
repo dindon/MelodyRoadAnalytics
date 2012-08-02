@@ -1,0 +1,6 @@
+<br />
+<b>Du {{ date1|date('d/m/Y') }} au {{ date2|date('d/m/Y') }}</b>
+<br />
+{% for datevisit in datesvisits %}
+	{{ datevisit.datevisit|date('d/m/Y') }} => {{ datevisit.visitors|length }}<br />
+{% endfor %}

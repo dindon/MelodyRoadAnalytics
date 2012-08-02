@@ -1,0 +1,11 @@
+## Commentaire ##
+MelodyRoadAnalyticsBundle_globalMonthGraphique: 
+    pattern: /{day}/{month}/{year}/global/graphique/month
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth" }
+    requirements:
+        day: \d+
+        month: \d+
+        year: \d+
+    options:
+        analytics: false
+        secure_analytics: true
