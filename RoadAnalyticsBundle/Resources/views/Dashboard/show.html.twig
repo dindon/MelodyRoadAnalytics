@@ -2,9 +2,9 @@
 {% block jquery %}
 	<b>Nb unique visitor since ever : </b>{{ nb_unique_visitor|length }}
 	<hr />
-	<b>Nb unique mobile visitor since ever : </b>{{ nb_unique_mobile_visitor|length }}<br />
-	<b>Nb unique tablet visitor since ever : </b>{{ nb_unique_tablet_visitor|length }}<br />
-	<b>Nb unique computer visitor since ever : </b>{{ nb_unique_computer_visitor|length }}<br />
+	<b>Nb unique mobile visitor since ever : </b>{{ nb_unique_mobile_visitor|length }} soit -> {{ nb_unique_mobile_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
+	<b>Nb unique tablet visitor since ever : </b>{{ nb_unique_tablet_visitor|length }} soit -> {{ nb_unique_tablet_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
+	<b>Nb unique computer visitor since ever : </b>{{ nb_unique_computer_visitor|length }} soit -> {{ nb_unique_computer_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
 	<hr />
 	<b>Nb unique visitor per broswer since ever : </b><br />
 	{% for broswer in visitor_per_broswers %}
