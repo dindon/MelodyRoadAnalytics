@@ -105,6 +105,10 @@ class MelodyVisitor
         $this->browser = 'Unknown';
     }
 
+    public function __toString(){
+        return (string) $this->id;
+    }
+
     /**
      * Get id
      *

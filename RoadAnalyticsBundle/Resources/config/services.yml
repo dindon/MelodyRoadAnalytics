@@ -15,3 +15,8 @@ services:
         scope: request
         tags:
             - { name: kernel.event_listener, priority: -255, event: kernel.request, method: isSecuredRoad }
+
+    twig.extension.melodyroadtwigext:
+        class: Melody\RoadAnalyticsBundle\Twig\Extension\TwigExtension
+        tags:
+            - { name: twig.extension }

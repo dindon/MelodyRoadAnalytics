@@ -1,0 +1,20 @@
+<html>
+	<head></head>
+	<body>
+		<b>Nb unique visitor since ever : </b>{{ nb_unique_visitor|length }}
+		<hr />
+		<b>Nb unique mobile visitor since ever : </b>{{ nb_unique_mobile_visitor|length }}<br />
+		<b>Nb unique tablet visitor since ever : </b>{{ nb_unique_tablet_visitor|length }}<br />
+		<b>Nb unique computer visitor since ever : </b>{{ nb_unique_computer_visitor|length }}<br />
+		<hr />
+		<b>Nb unique visitor per broswer since ever : </b><br />
+		{% for broswer in visitor_per_broswers %}
+			- <b>{{ broswer.browser }} ({{ broswer.1 }})</b> = {{ broswer.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
+		{% endfor %}
+		<hr />
+		<b>Nb unique visitor per OS since ever : </b><br />
+		{% for os in visitor_per_os %}
+			- <b>{{ os.os }} ({{ os.1 }})</b> = {{ os.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
+		{% endfor %}
+	</body>
+</html>
