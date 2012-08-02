@@ -1,0 +1,6 @@
+MelodyRoadAnalyticsBundle_dashboard: 
+    pattern: /analytics
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Dashboard:show" }
+    options:
+        analytics: false
+        secure_analytics: true

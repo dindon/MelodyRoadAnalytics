@@ -1,0 +1,7 @@
+MelodyRoadAnalyticsBundle_loginImport:
+    resource: "@MelodyRoadAnalyticsBundle/Resources/config/routing/login.yml"
+    prefix: /analytics
+
+MelodyRoadAnalyticsBundle_dashboardImport:
+    resource: "@MelodyRoadAnalyticsBundle/Resources/config/routing/dashboard.yml"
+    prefix: /

@@ -1,0 +1,5 @@
+MelodyRoadAnalyticsBundle_login: 
+    pattern: /login
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Login:show" }
+    options:
+        analytics: false

@@ -8,3 +8,10 @@ services:
         scope: request
         tags:
             - { name: kernel.event_listener, priority: -255, event: kernel.controller, method: visitorRequest }
+
+    melody_road_analytics.is_authentificated:
+        class: Melody\RoadAnalyticsBundle\Secure\SecureRoad
+        arguments: [@router, @request, @session, %melody_road_analytics_login%, %melody_road_analytics_pwd%]
+        scope: request
+        tags:
+            - { name: kernel.event_listener, priority: -255, event: kernel.request, method: isSecuredRoad }
