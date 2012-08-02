@@ -17,9 +17,20 @@ class TwigExtension extends \Twig_Extension
         	'round' => new \Twig_Filter_Method($this, 'twigRound'),
             'txtmonth' => new \Twig_Filter_Method($this, 'twigTxtMonth'),
             'pourcent' => new \Twig_Filter_Method($this, 'twigPourcent'),
+            'datediff' => new \Twig_Filter_Method($this, 'twigDateDiff'),
+            'addday' => new \Twig_Filter_Method($this, 'twigAddDay'),
         );
     }
  	
+    public function twigAddDay($date, $nday){
+        return $date->add(new \DateInterval('P'.$nday.'D'));
+    }
+
+    public function twigDateDiff($d1, $d2){
+        $dateInterval = $d1->diff($d2);
+        return $dateInterval->days;
+    }
+
     public function twigPourcent($val, $total){
         $pourcent = ($val*100)/$total;
         return \round($pourcent*100)/100;
