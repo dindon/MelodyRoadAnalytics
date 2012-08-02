@@ -1,5 +1,19 @@
 MelodyRoadAnalyticsBundle_login: 
     pattern: /login
-    defaults: { _controller: "MelodyRoadAnalyticsBundle:Login:show" }
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Login:form" }
+    options:
+        analytics: false
+
+MelodyRoadAnalyticsBundle_loginCheck: 
+    pattern: /login/check
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Login:check" }
+    requirements:
+        _method: post
+    options:
+        analytics: false
+
+MelodyRoadAnalyticsBundle_logout: 
+    pattern: /logout
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Login:logout" }
     options:
         analytics: false
