@@ -8,7 +8,6 @@ class DashboardController extends Controller
 {
 	public function showAction(){
 		$em = $this->getDoctrine()->getEntityManager();
-		
 		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitorSinceEver();
 		
 		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitorSinceEver();

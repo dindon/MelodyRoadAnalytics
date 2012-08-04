@@ -4,8 +4,7 @@ use Doctrine\ORM\EntityRepository;
 
 class MelodyRoadNmRepository extends EntityRepository
 {	
-	public function issetRoadWithGroup($roadname, $url, $group)
-	{
+	public function issetRoadWithGroup($roadname, $url, $group){
 		$qb = $this->createQueryBuilder('road');
 		$qb->select('road')
 		   ->join('road.refgrp', 'grp')
@@ -24,8 +23,7 @@ class MelodyRoadNmRepository extends EntityRepository
 		return false;
 	}
 
-	public function issetRoadWithoutGroup($roadname, $url)
-	{
+	public function issetRoadWithoutGroup($roadname, $url){
 		$qb = $this->createQueryBuilder('road');
 		$qb->select('road')
 		   ->where('road.roadname = :roadname')

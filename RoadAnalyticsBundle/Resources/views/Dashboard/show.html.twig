@@ -41,4 +41,9 @@
 
 	<b>Evolution du nb de visitor unique sur le mois passé : </b>
 	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth' with { 'day': "now"|date('d'), 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
+	<hr />
+
+
+	<b>Unique visitor evolution since one year : </b>
+	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneYear' with { 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
 {% endblock %}

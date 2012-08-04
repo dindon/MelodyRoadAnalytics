@@ -64,8 +64,7 @@ class MelodyVisitorRepository extends EntityRepository
 		return $query->getResult();
 	}
 
-	public function countUniqueVisitorPerBroswerSinceEver()
-	{
+	public function countUniqueVisitorPerBroswerSinceEver(){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor.browser', 'COUNT(visitor)')
 		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitorSinceEver()))
@@ -74,8 +73,7 @@ class MelodyVisitorRepository extends EntityRepository
 		return $query->getResult();
 	}
 
-	public function countUniqueVisitorPerOSSinceEver()
-	{
+	public function countUniqueVisitorPerOSSinceEver(){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor.os', 'COUNT(visitor)')
 		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitorSinceEver()))
@@ -84,8 +82,21 @@ class MelodyVisitorRepository extends EntityRepository
 		return $query->getResult();
 	}
 
-
-
+	public function countUniqueVisitorByMonth($date){
+		$maxDay = \date('t', \mktime(0, 0, 0, $date->format('m'), 1, $date->format('Y')));
+		$qb = $this->createQueryBuilder('visitor');
+		$qb->select('visitor')
+		   ->join('visitor.refdatevisit', 'date')
+		   ->where($qb->expr()->between('date.datevisit', ':date1', ':date2'))
+		   ->setParameters(array(
+		   		'date1' => $date->format('Y-m-d'),
+		   		'date2' => $date->format('Y-m-').$maxDay
+		   ))
+		   ->groupBy('visitor.refdatevisit')
+		   ->addGroupBy('visitor.ip');
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
 }
 
 

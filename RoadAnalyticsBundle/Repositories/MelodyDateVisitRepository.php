@@ -4,8 +4,7 @@ use Doctrine\ORM\EntityRepository;
 
 class MelodyDateVisitRepository extends EntityRepository
 {	
-	public function globalVisitorBetweenDates($firstDate, $lastDate)
-	{
+	public function globalVisitorBetweenDates($firstDate, $lastDate){
 		$em = $this->getEntityManager();
 
 		$qb = $this->createQueryBuilder('date');
