@@ -2,20 +2,43 @@
 {% block jquery %}
 	<b>Nb unique visitor since ever : </b>{{ nb_unique_visitor|length }}
 	<hr />
+
+
+
+
 	<b>Nb unique mobile visitor since ever : </b>{{ nb_unique_mobile_visitor|length }} soit -> {{ nb_unique_mobile_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
 	<b>Nb unique tablet visitor since ever : </b>{{ nb_unique_tablet_visitor|length }} soit -> {{ nb_unique_tablet_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
 	<b>Nb unique computer visitor since ever : </b>{{ nb_unique_computer_visitor|length }} soit -> {{ nb_unique_computer_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
+	{% set arr = [['Smartphones', nb_unique_mobile_visitor|length], ['Tablettes', nb_unique_tablet_visitor|length], ['Ordinateurs', nb_unique_computer_visitor|length]] %}
+	<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
 	<hr />
+
+
+
+
 	<b>Nb unique visitor per broswer since ever : </b><br />
+	{% set arr = [] %}
 	{% for broswer in visitor_per_broswers %}
 		- <b>{{ broswer.browser }} ({{ broswer.1 }})</b> = {{ broswer.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
+		{% set arr = arr|merge([ [broswer.browser, broswer.1|int] ]) %}
 	{% endfor %}
+	<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
 	<hr />
+
+
+
 	<b>Nb unique visitor per OS since ever : </b><br />
+	{% set arr = [] %}
 	{% for os in visitor_per_os %}
 		- <b>{{ os.os }} ({{ os.1 }})</b> = {{ os.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
+		{% set arr = arr|merge([ [os.os, os.1|int] ]) %}
 	{% endfor %}
+	<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
 	<hr />
+
+
+
+
 	<b>Evolution du nb de visitor unique sur le mois passé : </b>
 	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth' with { 'day': "now"|date('d'), 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
 {% endblock %}

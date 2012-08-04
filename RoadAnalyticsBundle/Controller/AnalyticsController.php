@@ -18,16 +18,19 @@ class AnalyticsController extends Controller
 
 		$key = 0;
 		$arrGraph = array();
+		$arrGraph[] = array('Dates', 'Visiteur(s)');
 		$ddif = $dFirst->diff($dLast);
 		for($i = 0; $i < $ddif->days+1; $i++) { 
 			$date = new \DateTime($dFirst->format('Y-m-d'));
 			$date->add(new \DateInterval('P'.$i.'D'));
 			if(isset($datesvisit[$key]) && $datesvisit[$key]['datevisit'] == $date->format('Y-m-d')){
-				$arrGraph[$date->format('Y-m-d')] = $datesvisit[$key][1];
+				$arrGraph[] = array($date->format('d/m/Y'), (int)$datesvisit[$key][1]);
 				$key++;
 			}
 			else
-				$arrGraph[$date->format('Y-m-d')] = 0;
+				$arrGraph[] = array($date->format('d/m/Y'), 0);
+				
+			//valeur 264%($i+1) => 0 en prod :p
 		}
 
 		return $this->render('MelodyRoadAnalyticsBundle:Graphiques:betweenEvolution.html.twig', array(

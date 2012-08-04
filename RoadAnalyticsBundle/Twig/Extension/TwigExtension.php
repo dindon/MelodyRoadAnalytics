@@ -19,9 +19,14 @@ class TwigExtension extends \Twig_Extension
             'pourcent' => new \Twig_Filter_Method($this, 'twigPourcent'),
             'datediff' => new \Twig_Filter_Method($this, 'twigDateDiff'),
             'addday' => new \Twig_Filter_Method($this, 'twigAddDay'),
+            'int' => new \Twig_Filter_Method($this, 'twigInt'),
         );
     }
  	
+    public function twigInt($str){
+        return (int)$str;
+    }
+
     public function twigAddDay($date, $nday){
         return $date->add(new \DateInterval('P'.$nday.'D'));
     }
