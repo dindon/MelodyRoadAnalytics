@@ -39,4 +39,18 @@ class MelodyRoadNmRepository extends EntityRepository
 			return $result[0];
 		return false;
 	}
+
+
+
+
+	//BULLSHIT
+	public function entryRoad(){
+		$qb = $this->createQueryBuilder('road');
+		$em = $this->_em;
+		$qb->select('road', $qb->expr()->length('road.visitors'))
+		   ->join('road.visitors', 'visitor')
+		   ->where($qb->expr()->in('visitor', $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->arrFirstLoadVisitor()));
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
 }

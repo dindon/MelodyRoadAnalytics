@@ -1,0 +1,15 @@
+{% set classDash = "nav" %}
+{% set classRoad = "nav" %}
+{% set classDate = "nav" %}
+{% set classRapport = "nav" %}
+
+
+{% set routeName = app.request.attributes.get('_route') %}
+{% if routeName == 'MelodyRoadAnalyticsBundle_dashboard' %}{% set classDash = 'nav navOver' %}{% endif %}
+
+<div id="nav_container">
+	<a href="" class="{{ classDash }}" id="dash">Statistiques</a>
+	<a href="" class="{{ classRoad }}" id="road">Par pages</a>
+	<a href="" class="{{ classDate }}" id="date">Les habitudes</a>
+	<a href="" class="{{ classRapport }}" id="rapport">Mise en place</a>
+</div>

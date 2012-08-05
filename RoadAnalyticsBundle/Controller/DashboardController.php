@@ -7,13 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 class DashboardController extends Controller
 {
 	public function showAction(){
+		
 		$em = $this->getDoctrine()->getEntityManager();
 		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitorSinceEver();
-		
 		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitorSinceEver();
 		$nb_unique_tablet_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueTabletVisitorSinceEver();
 		$nb_unique_computer_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueComputerVisitorSinceEver();
-
 		$visitor_per_broswers = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerBroswerSinceEver();
 
 		$visitor_per_os = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerOSSinceEver();
@@ -25,6 +24,15 @@ class DashboardController extends Controller
 		    'nb_unique_computer_visitor' => $nb_unique_computer_visitor,
 		    'visitor_per_broswers' => $visitor_per_broswers,
 		    'visitor_per_os' => $visitor_per_os
+		));
+	}
+
+	public function loadTotalUniqueVisitorAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitorSinceEver();
+
+		return $this->render('MelodyRoadAnalyticsBundle:Layout:globalVisitorIcon.html.twig', array(
+		    'global_unique_visitor' => \count($nb_unique_visitor)
 		));
 	}
 }

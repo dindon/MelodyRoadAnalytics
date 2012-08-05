@@ -1,6 +1,7 @@
 <?php
 namespace Melody\RoadAnalyticsBundle\Repositories;
 use Doctrine\ORM\EntityRepository;
+use Melody\RoadAnalyticsBundle\Entity\MelodyVisitor;
 
 class MelodyVisitorRepository extends EntityRepository
 {	
@@ -96,6 +97,23 @@ class MelodyVisitorRepository extends EntityRepository
 		   ->addGroupBy('visitor.ip');
 		$query = $qb->getQuery();
 		return $query->getResult();
+	}
+
+
+	// BULLSHIT
+	// QUI RECUPERE TOUT LES ID DES VISITEURS UNIQUE ENTRANT SUR LE SITE
+	public function arrFirstLoadVisitor(){
+		$qb = $this->createQueryBuilder('visitor');
+		$qb->select($qb->expr()->min('visitor.id'))
+		   ->groupBy('visitor.refdatevisit')
+		   ->addGroupBy('visitor.ip');
+		$query = $qb->getQuery();
+		$arr = $query->getResult();
+		$returnArr = array();
+		foreach($arr as $k){
+			$returnArr[] = $k[1];
+		}
+		return $returnArr;
 	}
 }
 

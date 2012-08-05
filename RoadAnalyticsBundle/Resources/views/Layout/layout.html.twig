@@ -7,8 +7,10 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('bundles/melodyroadanalytics/css/main.css') }}" type="text/css" media="screen" />
         <link rel="stylesheet" href="{{ asset('bundles/melodyroadanalytics/css/jquery.jqplot.min.css') }}" type="text/css" media="screen" />
+        <link rel="stylesheet" href="{{ asset('bundles/melodyroadanalytics/css/jquery-ui.css') }}" type="text/css" media="screen" />
 
         <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/lib/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/lib/jquery-ui.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/lib/jquery.MelodyLoad.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/lib/jquery.Stringify.js') }}"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -16,7 +18,27 @@
         <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/main.js') }}"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div id="head_bg_container">
+            <div id="head_container">
+                {% render 'MelodyRoadAnalyticsBundle:Dashboard:loadTotalUniqueVisitor' %}
+                <a href="" id="logo"></a>
+                <br class="clear" />
+                {% include 'MelodyRoadAnalyticsBundle:Layout:nav.html.twig' %}
+            </div>
+        </div>
+        <div id="ss_head_bg">
+            <div id="ss_head_container">
+                {% block interval %}{% endblock %}
+            </div>
+        </div>
+        <div id="body_bg">
+            <div id="body_container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <div id="footer_container">
+            <a href="" id="logo_melody"></a>
+        </div>
         {% block jquery %}{% endblock %}
     </body>
 </html>

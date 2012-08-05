@@ -14,7 +14,7 @@ $(document).ready(function(){
         	hAxis: { textStyle: { fontSize: 12 } },
         	vAxis: { textStyle: { fontSize: 12 } },
         };
-        var chart = new google.visualization.SteppedAreaChart(document.getElementById(id));
+        var chart = new google.visualization.ColumnChart(document.getElementById(id));
         chart.draw(data, options);
 	});
 });
