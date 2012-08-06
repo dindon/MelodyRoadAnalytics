@@ -8,8 +8,9 @@
 {% if routeName == 'MelodyRoadAnalyticsBundle_dashboard' %}{% set classDash = 'nav navOver' %}{% endif %}
 
 <div id="nav_container">
-	<a href="" class="{{ classDash }}" id="dash">Statistiques</a>
+	<a href="{{ path('MelodyRoadAnalyticsBundle_dashboard') }}" class="{{ classDash }}" id="dash">Statistiques</a>
 	<a href="" class="{{ classRoad }}" id="road">Par pages</a>
 	<a href="" class="{{ classDate }}" id="date">Les habitudes</a>
-	<a href="" class="{{ classRapport }}" id="rapport">Mise en place</a>
+	{#<a href="" class="{{ classRapport }}" id="rapport">Rapport</a>#}
+	<a href="{{ path('MelodyRoadAnalyticsBundle_logout') }}" class="nav" id="logout">Déconnexion</a>
 </div>
