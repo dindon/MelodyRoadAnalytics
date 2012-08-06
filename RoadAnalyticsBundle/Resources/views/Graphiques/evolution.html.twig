@@ -1,11 +1,4 @@
-<div style="display: none;">
-<br />
-<b>Du {{ date1|date('d/m/Y') }} au {{ date2|date('d/m/Y') }}</b>
-<br />
 
-Delta : {{ date1|datediff(date2) + 1 }} jours
-<br />
-</div>
 <div class="makeGraph" id="chartBetweenDates" style="width: 1000px; height: 300px;">
 	<span>{{ arrGraphJson }}</span>
 </div>

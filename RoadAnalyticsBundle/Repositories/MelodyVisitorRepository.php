@@ -45,6 +45,7 @@ class MelodyVisitorRepository extends EntityRepository
 		return $query->getResult();
 	}
 
+	//On récupère les visiteurs unique entre l'interval d1 et d2
 	public function countGlobalUniqueVisitor($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor')
@@ -60,49 +61,84 @@ class MelodyVisitorRepository extends EntityRepository
 		return $query->getResult();
 	}
 
-	public function countUniqueMobileVisitorSinceEver(){
+	//On récupère les visiteurs unique mobile seulement entre l'interval d1 et d2
+	public function countUniqueMobileVisitor($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor')
+		   ->join('visitor.refdatevisit', 'date')
 		   ->where('visitor.mobile = 1')
+		   ->andWhere($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.refdatevisit')
 		   ->addGroupBy('visitor.ip');
 		$query = $qb->getQuery();
 		return $query->getResult();
 	}
 
-	public function countUniqueTabletVisitorSinceEver(){
+	//On récupère les visiteurs unique tablette seulement entre l'interval d1 et d2
+	public function countUniqueTabletVisitor($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor')
+		   ->join('visitor.refdatevisit', 'date')
 		   ->where('visitor.tablet = 1')
+		   ->andWhere($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.refdatevisit')
 		   ->addGroupBy('visitor.ip');
 		$query = $qb->getQuery();
 		return $query->getResult();
 	}
 
-	public function countUniqueComputerVisitorSinceEver(){
+	//On récupère les visiteurs unique ordinateur seulement entre l'interval d1 et d2
+	public function countUniqueComputerVisitor($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor')
+		   ->join('visitor.refdatevisit', 'date')
 		   ->where('visitor.computer = 1')
+		   ->andWhere($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.refdatevisit')
 		   ->addGroupBy('visitor.ip');
 		$query = $qb->getQuery();
 		return $query->getResult();
 	}
 
-	public function countUniqueVisitorPerBroswerSinceEver(){
+	//On récupère les visitors groupés par navigateurs entre l'interval d1 et d2
+	public function countUniqueVisitorPerBroswer($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor.browser', 'COUNT(visitor)')
-		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitorSinceEver()))
+		   ->join('visitor.refdatevisit', 'date')
+		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitor($d1,$d2)))
+		   ->andWhere($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.browser');
 		$query = $qb->getQuery();
 		return $query->getResult();
 	}
 
-	public function countUniqueVisitorPerOSSinceEver(){
+	//On récupère les visitors groupés par os entre l'interval d1 et d2
+	public function countUniqueVisitorPerOS($d1, $d2){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor.os', 'COUNT(visitor)')
-		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitorSinceEver()))
+		   ->join('visitor.refdatevisit', 'date')
+		   ->where($qb->expr()->in('visitor', $this->countGlobalUniqueVisitor($d1,$d2)))
+		   ->andWhere($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.os');
 		$query = $qb->getQuery();
 		return $query->getResult();

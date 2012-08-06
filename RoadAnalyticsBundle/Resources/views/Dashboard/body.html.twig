@@ -1,35 +1,50 @@
+{###################}
+{# GLOBAL VISITORS #}
+{###################}
 <div style="text-align: center;">
-<h1 class="dash_visitor">
-	{{ nb_unique_visitor|length }} {% if nb_unique_visitor|length > 1 %}visiteurs uniques{% else %}visiteur unique{% endif %}<br />
-	<i>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</i>
-</h1>
+	<h1 class="dash_visitor">
+		{{ nb_unique_visitor|length }} {% if nb_unique_visitor|length > 1 %}visiteurs uniques{% else %}visiteur unique{% endif %}<br />
+		<i>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</i>
+	</h1>
 </div>
 <div class="liseret"></div>
 
+
+{###########################}
+{# EVOLUTION JOUR PAR JOUR #}
+{###########################}
 <div class="titre_container">
-	<h1>Evolution du nb de visitor unique sur le mois passé</h1>
-	<h2>Du 06/07/2012 au 05/08/2012 </h2>
+	<h1>Evolution du nombre de visiteurs uniques</h1>
+	<h2>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</h2>
 </div>
 <div class="box_container">
-	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth' with { 'day': "now"|date('d'), 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
+	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphique' with { 'd1': d1|date('Y-m-d'), 'd2': d2|date('Y-m-d') } %}
 </div>
-
 <div class="ecart"></div>
 
+
+{#############################################}
+{# BOX SMARTPHONES / TABLETTES / ORDINATEURS #}
+{#############################################}
 <div class="divisibly3">
 	<div class="titre_container">
 		<h1>Le matériel utilisé</h1>
-		<h2>Du 06/07/2012 au 05/08/2012</h2>
+		<h2>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</h2>
 	</div>
 	<div class="box_container">
 		{% set arr = [['Smartphones', nb_unique_mobile_visitor|length], ['Tablettes', nb_unique_tablet_visitor|length], ['Ordinateurs', nb_unique_computer_visitor|length]] %}
 		<div class="makePie" style="width: 90%; height: 200px; margin: auto;"><span>{{ arr|json_encode }}</span></div>
 	</div>
 </div>
+
+
+{###################}
+{# BOX NAVIGATEURS #}
+{###################}
 <div class="divisibly3">
 	<div class="titre_container">
 		<h1>Le naviguateur utilisé</h1>
-		<h2>Du 06/07/2012 au 05/08/2012</h2>
+		<h2>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</h2>
 	</div>
 	<div class="box_container">
 		{% set arr = [] %}
@@ -39,10 +54,15 @@
 		<div class="makePie" style="width: 90%; height: 200px; margin: auto;"><span>{{ arr|json_encode }}</span></div>
 	</div>
 </div>
+
+
+{##############################}
+{# BOX SYSTEME D'EXPLOITATION #}
+{##############################}
 <div class="divisibly3">
 	<div class="titre_container">
 		<h1>L'OS utilisé</h1>
-		<h2>Du 06/07/2012 au 05/08/2012</h2>
+		<h2>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</h2>
 	</div>
 	<div class="box_container">
 		{% set arr = [] %}
@@ -53,12 +73,13 @@
 	</div>
 </div>
 <br class="clear" />
-
 <div class="ecart"></div>
 
+
+
 <div class="titre_container">
-	<h1>Visiteurs unique mois pas mois depuis 1 ans</h1>
-	<h2>Best month ... </h2>
+	<h1>Visiteurs uniques mois pas mois</h1>
+	<h2>Depuis un ans</h2>
 </div>
 <div class="box_container">
 	{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneYear' with { 'month': "now"|date('m'), 'year': "now"|date('Y') } %}

@@ -27,15 +27,20 @@ class DashboardController extends Controller
 			$template = "MelodyRoadAnalyticsBundle:Dashboard:show.html.twig";
 		}
 
-		//On récupère les visitors uniques entre l'interval date1 et date2
+		//On récupère les visiteurs entre l'interval date1 et date2
 		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitor($date1, $date2);
+		//On récupère les visiteurs mobile entre l'interval date1 et date2
+		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitor($date1, $date2);
+		//On récupère les visiteurs tablettes entre l'interval date1 et date2
+		$nb_unique_tablet_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueTabletVisitor($date1, $date2);
+		//On récupère les visiteurs ordinateurs entre l'interval date1 et date2
+		$nb_unique_computer_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueComputerVisitor($date1, $date2);
 
-		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitorSinceEver();
-		$nb_unique_tablet_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueTabletVisitorSinceEver();
-		$nb_unique_computer_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueComputerVisitorSinceEver();
-		$visitor_per_broswers = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerBroswerSinceEver();
+		//On récupère les visitors groupés par navigateurs entre l'interval date1 et date2
+		$visitor_per_broswers = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerBroswer($date1, $date2);
 
-		$visitor_per_os = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerOSSinceEver();
+		//On récupère les visitors groupés par os entre l'interval date1 et date2
+		$visitor_per_os = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerOS($date1, $date2);
 
 		return $this->render($template, array(
 		    'nb_unique_visitor' => $nb_unique_visitor,

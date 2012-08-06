@@ -6,15 +6,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AnalyticsController extends Controller
 {
-	public function globalGraphiqueSinceOneMonthAction($day, $month, $year){
-		$maxDay = \date('t', \mktime(0, 0, 0, $month, 1, $year));
-		$day = $maxDay < $day ? $maxDay : $day;
-		
-		$dFirst = new \DateTime(); $dFirst->setDate($year, $month, $day-30);
-		$dLast = new \DateTime(); $dLast->setDate($year, $month, $day);
+	public function globalGraphiqueAction($d1, $d2){
+		$dFirst = new \DateTime($d1);
+		$dLast = new \DateTime($d2);
 
 		$em = $this->getDoctrine()->getEntityManager();
-		$datesvisit = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyDateVisit')->globalVisitorBetweenDates($dFirst->format('Y-m-d'), $dLast->format('Y-m-d'));
+		$datesvisit = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyDateVisit')->globalVisitorBetweenDates($dFirst, $dLast);
 
 		$key = 0;
 		$arrGraph = array(array('Dates', 'Visiteur(s)'));
@@ -32,7 +29,7 @@ class AnalyticsController extends Controller
 			//valeur 264%($i+1) => 0 en prod :p
 		}
 
-		return $this->render('MelodyRoadAnalyticsBundle:Graphiques:monthEvolution.html.twig', array(
+		return $this->render('MelodyRoadAnalyticsBundle:Graphiques:evolution.html.twig', array(
 		    'date1' => $dFirst,
 		    'date2' => $dLast,
 		    'arrGraphJson' => \json_encode($arrGraph)
