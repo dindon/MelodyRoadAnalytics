@@ -26,9 +26,34 @@ class MelodyVisitorRepository extends EntityRepository
 		return false;
 	}
 
+	public function returnFirstVisitor()
+	{
+		$qb = $this->createQueryBuilder('visitor');
+		$qb->select('visitor')
+		   ->orderBy('visitor.datevisit', 'ASC')
+		   ->setMaxResults(1);
+		$query = $qb->getQuery();
+		return $query->getOneOrNullResult();
+	}
+
 	public function countGlobalUniqueVisitorSinceEver(){
 		$qb = $this->createQueryBuilder('visitor');
 		$qb->select('visitor')
+		   ->groupBy('visitor.refdatevisit')
+		   ->addGroupBy('visitor.ip');
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
+
+	public function countGlobalUniqueVisitor($d1, $d2){
+		$qb = $this->createQueryBuilder('visitor');
+		$qb->select('visitor')
+		   ->join('visitor.refdatevisit', 'date')
+		   ->where($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ))
 		   ->groupBy('visitor.refdatevisit')
 		   ->addGroupBy('visitor.ip');
 		$query = $qb->getQuery();

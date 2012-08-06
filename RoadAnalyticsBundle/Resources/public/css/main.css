@@ -173,7 +173,7 @@ a, h1, h2, h3, h4, h5, h6, p, b, i, input, label, textarea, font
 	min-width: 1000px;
 	background-image: url('../images/body.jpg');
 	background-repeat: repeat;
-	padding-top: 40px;
+	padding-top: 20px;
 	padding-bottom: 20px;
 	-moz-box-shadow: inset 0 2px 15px -5px #000;
 	-webkit-box-shadow: inset 0 2px 15px -5px #000;
@@ -301,8 +301,37 @@ a, h1, h2, h3, h4, h5, h6, p, b, i, input, label, textarea, font
 	width: 100%; height: 30px;
 }
 
+.liseret
+{
+	width: 1000%; height: 31px;
+	background-image: url('../images/liseret.png');
+}
 
+.dash_visitor
+{
+	background-image: url('../images/visitor.png');
+	padding-left: 60px;
+	padding-top: 22px;
+	height: 38px;
+	background-repeat: no-repeat;
+	font-size: 20px;
+	line-height: 18px;
+	color: #333;
+	font-style: italic;
+	font-weight: bold;
+	text-align: left;
+	margin-bottom: 20px;
+	display: inline-block;
+}
 
+.dash_visitor i
+{
+	font-size: 14px;
+	line-height: 16px;
+	color: #999;
+	text-align: left;
+	font-weight: normal;
+}
 
 
 
