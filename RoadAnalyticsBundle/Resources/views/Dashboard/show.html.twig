@@ -10,10 +10,10 @@
 {% block jquery %}<script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/dash.js') }}"></script>{% endblock %}
 {% block body %}
 	<div id="middle_dash">
+		{#
 		<b>Nb unique visitor since ever : </b>{{ nb_unique_visitor|length }}
 		<br />
-		<hr />
-		<br />
+		#}
 		<div class="titre_container">
 			<h1>Evolution du nb de visitor unique sur le mois passé</h1>
 			<h2>Du 06/07/2012 au 05/08/2012 </h2>
@@ -21,39 +21,56 @@
 		<div class="box_container">
 			{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth' with { 'day': "now"|date('d'), 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
 		</div>
-		<br />
-		<hr />
-		<br />
-		<b>Nb unique mobile visitor since ever : </b>{{ nb_unique_mobile_visitor|length }} soit -> {{ nb_unique_mobile_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
-		<b>Nb unique tablet visitor since ever : </b>{{ nb_unique_tablet_visitor|length }} soit -> {{ nb_unique_tablet_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
-		<b>Nb unique computer visitor since ever : </b>{{ nb_unique_computer_visitor|length }} soit -> {{ nb_unique_computer_visitor|length|pourcent(nb_unique_visitor|length) }}%<br />
-		{% set arr = [['Smartphones', nb_unique_mobile_visitor|length], ['Tablettes', nb_unique_tablet_visitor|length], ['Ordinateurs', nb_unique_computer_visitor|length]] %}
-		<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
-		<hr />
 
-		<b>Nb unique visitor per broswer since ever : </b><br />
-		{% set arr = [] %}
-		{% for broswer in visitor_per_broswers %}
-			- <b>{{ broswer.browser }} ({{ broswer.1 }})</b> = {{ broswer.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
-			{% set arr = arr|merge([ [broswer.browser, broswer.1|int] ]) %}
-		{% endfor %}
-		<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
-		<hr />
+		<div class="ecart"></div>
 
-		<b>Nb unique visitor per OS since ever : </b><br />
-		{% set arr = [] %}
-		{% for os in visitor_per_os %}
-			- <b>{{ os.os }} ({{ os.1 }})</b> = {{ os.1|pourcent(nb_unique_visitor|length) }}% de tous les visitors<br />
-			{% set arr = arr|merge([ [os.os, os.1|int] ]) %}
-		{% endfor %}
-		<div class="makePie" style="width: 350px; height: 200px;"><span>{{ arr|json_encode }}</span></div>
-		<hr />
+		<div class="divisibly3">
+			<div class="titre_container">
+				<h1>Le matériel utilisé</h1>
+				<h2>Du 06/07/2012 au 05/08/2012</h2>
+			</div>
+			<div class="box_container">
+				{% set arr = [['Smartphones', nb_unique_mobile_visitor|length], ['Tablettes', nb_unique_tablet_visitor|length], ['Ordinateurs', nb_unique_computer_visitor|length]] %}
+				<div class="makePie" style="width: 90%; height: 200px; margin: auto;"><span>{{ arr|json_encode }}</span></div>
+			</div>
+		</div>
+		<div class="divisibly3">
+			<div class="titre_container">
+				<h1>Le naviguateur utilisé</h1>
+				<h2>Du 06/07/2012 au 05/08/2012</h2>
+			</div>
+			<div class="box_container">
+				{% set arr = [] %}
+				{% for broswer in visitor_per_broswers %}
+					{% set arr = arr|merge([ [broswer.browser, broswer.1|int] ]) %}
+				{% endfor %}
+				<div class="makePie" style="width: 90%; height: 200px; margin: auto;"><span>{{ arr|json_encode }}</span></div>
+			</div>
+		</div>
+		<div class="divisibly3">
+			<div class="titre_container">
+				<h1>L'OS utilisé</h1>
+				<h2>Du 06/07/2012 au 05/08/2012</h2>
+			</div>
+			<div class="box_container">
+				{% set arr = [] %}
+				{% for os in visitor_per_os %}
+					{% set arr = arr|merge([ [os.os, os.1|int] ]) %}
+				{% endfor %}
+				<div class="makePie" style="width: 90%; height: 200px; margin: auto;"><span>{{ arr|json_encode }}</span></div>
+			</div>
+		</div>
+		<br class="clear" />
 
-		<b>Evolution du nb de visitor unique sur le mois passé : </b>
-		{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneMonth' with { 'day': "now"|date('d'), 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
-		<hr />
+		<div class="ecart"></div>
 
-		<b>Unique visitor evolution since one year : </b>
-		{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneYear' with { 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
+		<div class="titre_container">
+			<h1>Visiteurs unique mois pas mois depuis 1 ans</h1>
+			<h2>Best month ... </h2>
+		</div>
+		<div class="box_container">
+			{% render 'MelodyRoadAnalyticsBundle:Analytics:globalGraphiqueSinceOneYear' with { 'month': "now"|date('m'), 'year': "now"|date('Y') } %}
+		</div>
+		<div class="ecart"></div>
 	</div>
 {% endblock %}

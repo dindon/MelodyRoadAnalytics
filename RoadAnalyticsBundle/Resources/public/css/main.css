@@ -168,7 +168,7 @@ a, h1, h2, h3, h4, h5, h6, p, b, i, input, label, textarea, font
 	min-width: 1000px;
 	background-image: url('../images/body.jpg');
 	background-repeat: repeat;
-	padding-top: 20px;
+	padding-top: 40px;
 	padding-bottom: 20px;
 	-moz-box-shadow: inset 0 2px 15px -5px #000;
 	-webkit-box-shadow: inset 0 2px 15px -5px #000;
@@ -280,4 +280,32 @@ a, h1, h2, h3, h4, h5, h6, p, b, i, input, label, textarea, font
 	margin-left: 3px;
 	margin-right: 3px;
 }
+
+.divisibly3
+{
+	width: 31%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 1%;
+	margin-right: 1%;
+	float: left;
+}
+
+.ecart
+{
+	width: 100%; height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
