@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Road Analytics{% endblock %}</title>
+        {% block css %}{% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/melodyroadanalytics/css/main.css') }}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/lib/jquery.min.js') }}"></script>
+    </head>
+    <body>
+        <div id="head_bg_container">
+            <div id="head_container">
+                <a href="" id="logo" style="margin-left: 0px;"></a>
+                <br class="clear" />
+            </div>
+        </div>
+        <div id="body_bg">
+            <div id="body_container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <div id="footer_container">
+            <a href="" id="logo_melody"></a>
+        </div>
+        {% block jquery %}{% endblock %}
+    </body>
+</html>
