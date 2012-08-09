@@ -1,5 +1,2 @@
 google.load('visualization', '1.0', {'packages':['corechart']});
-
-$(document).ready(function(){
-	
-});
+google.load('visualization', '1', {packages:['table']});

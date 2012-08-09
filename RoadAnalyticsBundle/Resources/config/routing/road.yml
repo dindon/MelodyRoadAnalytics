@@ -1,0 +1,6 @@
+MelodyRoadAnalyticsBundle_showRoad: 
+    pattern: /liens
+    defaults: { _controller: "MelodyRoadAnalyticsBundle:Road:show" }
+    options:
+        analytics: false
+        secure_analytics: true

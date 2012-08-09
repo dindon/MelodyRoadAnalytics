@@ -9,3 +9,7 @@ MelodyRoadAnalyticsBundle_dashboardImport:
 MelodyRoadAnalyticsBundle_analyticsImport:
     resource: "@MelodyRoadAnalyticsBundle/Resources/config/routing/analytics.yml"
     prefix: /analytics
+
+MelodyRoadAnalyticsBundle_roadImport:
+    resource: "@MelodyRoadAnalyticsBundle/Resources/config/routing/road.yml"
+    prefix: /analytics

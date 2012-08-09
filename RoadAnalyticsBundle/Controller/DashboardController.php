@@ -8,39 +8,23 @@ class DashboardController extends Controller
 {
 	public function showAction(){
 		$em = $this->getDoctrine()->getEntityManager();
-		$req = $this->getRequest();
-		if($req->isXmlHttpRequest()){
-			//Si requête ajax c'est que l'intervale a été modifié
-			$post = $this->getRequest()->request;
-			list($d1,$m1,$y1) = \explode('/', $post->get('d1'));
-			list($d2,$m2,$y2) = \explode('/', $post->get('d2'));
-			$date1 = new \DateTime(); $date2 = new \DateTime();
-			$date1->setDate($y1, $m1, $d1);
-			$date2->setDate($y2, $m2, $d2);
-			$template = "MelodyRoadAnalyticsBundle:Dashboard:body.html.twig";
-		}
-		else {
-			// Sinon on récupère la date de la toute première visite
-			$firstvisitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->returnFirstVisitor();
-			$date1 = $firstvisitor ? $firstvisitor->getDatevisit() : new \DateTime();
-			$date2 = new \DateTime();
-			$template = "MelodyRoadAnalyticsBundle:Dashboard:show.html.twig";
-		}
+		$dates = $this->get('melody_road_analytics.dategetters')->getDates();
+		$template = $this->getRequest()->isXmlHttpRequest() ? "MelodyRoadAnalyticsBundle:Dashboard:body.html.twig" : "MelodyRoadAnalyticsBundle:Dashboard:show.html.twig";
 
 		//On récupère les visiteurs entre l'interval date1 et date2
-		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitor($date1, $date2);
+		$nb_unique_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countGlobalUniqueVisitor($dates[0], $dates[1]);
 		//On récupère les visiteurs mobile entre l'interval date1 et date2
-		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitor($date1, $date2);
+		$nb_unique_mobile_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueMobileVisitor($dates[0], $dates[1]);
 		//On récupère les visiteurs tablettes entre l'interval date1 et date2
-		$nb_unique_tablet_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueTabletVisitor($date1, $date2);
+		$nb_unique_tablet_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueTabletVisitor($dates[0], $dates[1]);
 		//On récupère les visiteurs ordinateurs entre l'interval date1 et date2
-		$nb_unique_computer_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueComputerVisitor($date1, $date2);
+		$nb_unique_computer_visitor = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueComputerVisitor($dates[0], $dates[1]);
 
 		//On récupère les visitors groupés par navigateurs entre l'interval date1 et date2
-		$visitor_per_broswers = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerBroswer($date1, $date2);
+		$visitor_per_broswers = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerBroswer($dates[0], $dates[1]);
 
 		//On récupère les visitors groupés par os entre l'interval date1 et date2
-		$visitor_per_os = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerOS($date1, $date2);
+		$visitor_per_os = $em->getRepository('MelodyRoadAnalyticsBundle:MelodyVisitor')->countUniqueVisitorPerOS($dates[0], $dates[1]);
 
 		return $this->render($template, array(
 		    'nb_unique_visitor' => $nb_unique_visitor,
@@ -49,8 +33,8 @@ class DashboardController extends Controller
 		    'nb_unique_computer_visitor' => $nb_unique_computer_visitor,
 		    'visitor_per_broswers' => $visitor_per_broswers,
 		    'visitor_per_os' => $visitor_per_os,
-		    'd1' => $date1,
-		    'd2' => $date2
+		    'd1' => $dates[0],
+		    'd2' => $dates[1]
 		));
 	}
 

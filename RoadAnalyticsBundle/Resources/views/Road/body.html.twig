@@ -1,0 +1,24 @@
+{######################}
+{# TABLEAU DES ROUTES #}
+{######################}
+<div class="titre_container">
+	<h1>Classement par liens</h1>
+	<h2>Entre le {{ d1|date('d/m/Y') }} et le {{ d2|date('d/m/Y') }}</h2>
+</div>
+<div class="box_container">
+	<div class="makeTable">
+		{% set arr = [] %}
+		{% for road in roads %}
+			{% set tablettes = 0 %}
+			{% set mobiles = 0 %}
+			{% set ordinateurs = 0 %}
+			{% for vi in road.visitors %}{% if vi.mobile == 1 %}{% set mobiles = mobiles + 1 %}{% elseif vi.tablet == 1 %}{% set tablettes = tablettes + 1 %}{% elseif vi.computer == 1 %}{% set ordinateurs = ordinateurs + 1 %}{% endif %}{% endfor %}
+			{% set grp = "Aucun groupe" %}
+			{% if road.refgrp.id is defined %}{% set grp = road.refgrp.libelle|stripslashes %}{% endif %}
+			{% set arr = arr|merge([[road.url, road.roadname, grp, road.visitors|length, tablettes, mobiles, ordinateurs]]) %}
+		{% endfor %}
+		<span>{{ arr|json_encode }}</span>
+	</div>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/tableLoader.js') }}"></script>

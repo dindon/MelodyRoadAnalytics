@@ -20,3 +20,8 @@ services:
         class: Melody\RoadAnalyticsBundle\Twig\Extension\TwigExtension
         tags:
             - { name: twig.extension }
+
+    melody_road_analytics.dategetters:
+        class: Melody\RoadAnalyticsBundle\Services\DateInterval
+        arguments: [@request, @doctrine.orm.entity_manager]
+        scope: request

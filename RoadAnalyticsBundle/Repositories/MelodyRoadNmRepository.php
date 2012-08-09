@@ -41,6 +41,21 @@ class MelodyRoadNmRepository extends EntityRepository
 	}
 
 
+	public function returnRoadsWithVisitorBetweenDate($d1, $d2)
+	{
+		$qb = $this->createQueryBuilder('road');
+		$qb->select('road', 'visitor', 'grp')
+		   ->join('road.visitors', 'visitor')
+		   ->leftJoin('road.refgrp', 'grp')
+		   ->join('visitor.refdatevisit', 'date')
+		   ->where($qb->expr()->between('date.datevisit', ':d1', ':d2'))
+		   ->setParameters(array(
+		   		'd1' => $d1->format('Y-m-d'),
+		   		'd2' => $d2->format('Y-m-d')
+		   ));
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
 
 
 	//BULLSHIT

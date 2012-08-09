@@ -1,1 +1,16 @@
-:)
+{% extends 'MelodyRoadAnalyticsBundle:Layout:layout.html.twig' %}
+{% block interval %}
+	<p class="changeDateContainer">
+		Statistiques par liens pour les dates du 
+		<input type="text" class="changeDate" id="changeDateStart" value="{{ d1|date('d/m/Y') }}" readonly="readonly" />
+		 au 
+		<input type="text" class="changeDate" id="changeDateEnd" value="{{ d2|date('d/m/Y') }}" readonly="readonly" />
+	</p>
+	<input type="hidden" id="roadRoute" value="{{ path('MelodyRoadAnalyticsBundle_showRoad') }}" />
+{% endblock %}
+{% block jquery %}<script type="text/javascript" src="{{ asset('bundles/melodyroadanalytics/js/road.js') }}"></script>{% endblock %}
+{% block body %}
+	<div id="middle_road">
+		{% include 'MelodyRoadAnalyticsBundle:Road:body.html.twig' %}
+	</div>
+{% endblock %}
